@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Environmental Portal</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    background: linear-gradient(135deg,#0f2027,#2c7744,#11998e);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+/* Floating circles animation */
+body::before,
+body::after{
+    content:'';
+    position:absolute;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.05);
+    animation:float 8s infinite ease-in-out alternate;
+}
+
+body::before{
+    top:-200px;
+    left:-200px;
+}
+
+body::after{
+    bottom:-200px;
+    right:-200px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    from{transform:translateY(0px);}
+    to{transform:translateY(40px);}
+}
+
+.container{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:60px;
+    text-align:center;
+    width:90%;
+    max-width:900px;
+    color:white;
+    box-shadow:0 25px 60px rgba(0,0,0,0.3);
+    animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(40px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+h1{
+    font-size:40px;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+p{
+    font-size:18px;
+    margin-bottom:40px;
+    color:#e0f7f1;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+}
+
+button{
+    padding:15px 40px;
+    border:none;
+    border-radius:30px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+.login-btn{
+    background:#00c853;
+    color:white;
+}
+
+.login-btn:hover{
+    background:#00e676;
+    transform:translateY(-3px);
+}
+
+.register-btn{
+    background:white;
+    color:#2c7744;
+}
+
+.register-btn:hover{
+    background:#e0f2f1;
+    transform:translateY(-3px);
+}
+
+.footer{
+    margin-top:40px;
+    font-size:14px;
+    opacity:0.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🌍 Environmental Data Portal</h1>
+    <p>
+        Monitor • Analyze • Protect  
+        <br>
+        A modern system to track air, water, soil and environmental metrics.
+    </p>
+
+    <div class="buttons">
+        <button class="login-btn" onclick="goLogin()">Login</button>
+        <button class="register-btn" onclick="goRegister()">Register</button>
+    </div>
+
+    <div class="footer">
+        Built with Spring Boot • JWT • Secure Role Based Access
+    </div>
+</div>
+
+<script>
+function goLogin(){
+    window.location.href="login.html";
+}
+
+function goRegister(){
+    window.location.href="register.html";
+}
+
+// Auto redirect if already logged in
+const token = localStorage.getItem("token");
+if(token){
+    window.location.href="dashboard.html";
+}
+</script>
+
+</body>
+</html>

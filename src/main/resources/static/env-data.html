@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Environmental Data Submission</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+  background: linear-gradient(to right, #d4fc79, #96e6a1);
+}
+
+.card-box {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.table thead {
+  background-color: #198754;
+  color: white;
+}
+
+.btn-success {
+  background-color: #198754;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #146c43;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+  <div class="card-box">
+    <h2 class="text-center mb-4 text-success">🌍 Submit Environmental Data</h2>
+
+    <form id="dataForm" class="row g-3">
+
+      <div class="col-md-3">
+        <label class="form-label">Date/Time</label>
+        <input type="datetime-local" id="measurementDate" class="form-control" required />
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Location</label>
+        <input type="text" id="locationInput" class="form-control" required />
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Data Type</label>
+        <select id="dataTypeInput" class="form-select" required>
+          <option value="">Choose...</option>
+          <option>Air Quality</option>
+          <option>Water Quality</option>
+          <option>Soil Quality</option>
+          <option>Noise Level</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Parameter</label>
+        <input type="text" id="parameterInput" class="form-control" required />
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label">Value</label>
+        <input type="number" id="valueInput" class="form-control" step="any" required />
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label">Unit</label>
+        <input type="text" id="unitInput" class="form-control" required />
+      </div>
+
+      <div class="col-md-8">
+        <label class="form-label">Description</label>
+        <input type="text" id="descriptionInput" class="form-control" />
+      </div>
+
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-success px-5">Submit Data</button>
+      </div>
+
+    </form>
+  </div>
+
+  <hr class="my-5"/>
+
+  <div class="card-box">
+    <h3 class="text-center text-success mb-3">📊 My Environmental Data</h3>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Date/Time</th>
+          <th>Location</th>
+          <th>Type</th>
+          <th>Parameter</th>
+          <th>Value</th>
+          <th>Unit</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody id="dataTableBody">
+        <tr><td colspan="7" class="text-center">Loading...</td></tr>
+      </tbody>
+    </table>
+
+    <h4 class="mt-5 text-success">📈 Latest Trend Chart</h4>
+    <canvas id="trendChart" height="100"></canvas>
+  </div>
+
+</div>
+
+<script>
+
+const token = localStorage.getItem("token");
+
+if (!token) {
+  alert("Please login first");
+  window.location.href = "login.html";
+}
+
+// Form Submit
+document.getElementById("dataForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  submitData();
+});
+
+loadData();
+
+function submitData() {
+
+  const rawTimestamp = document.getElementById('measurementDate').value;
+
+  const data = {
+    timestamp: rawTimestamp ? new Date(rawTimestamp).toISOString() : null,
+    location: document.getElementById('locationInput').value,
+    dataType: document.getElementById('dataTypeInput').value,
+    parameter: document.getElementById('parameterInput').value,
+    value: parseFloat(document.getElementById('valueInput').value),
+    unit: document.getElementById('unitInput').value,
+    description: document.getElementById('descriptionInput').value
+  };
+
+  fetch('http://localhost:8080/api/env-data/submit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => {
+    if (res.status === 401) {
+      alert("Session expired. Please login again.");
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+      return;
+    }
+    return res.text();
+  })
+  .then(() => {
+    alert("Data submitted successfully");
+    document.getElementById("dataForm").reset();
+    loadData();
+  })
+  .catch(() => alert("Error submitting data"));
+}
+
+function loadData() {
+
+  fetch('http://localhost:8080/api/env-data/my-data', {
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  })
+  .then(res => {
+    if (res.status === 401) {
+      alert("Session expired. Please login again.");
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+      return;
+    }
+    return res.json();
+  })
+  .then(data => {
+
+    const tbody = document.getElementById('dataTableBody');
+
+    if (!data || !data.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="text-center">No data found</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = data.map(d => `
+      <tr>
+        <td>${d.timestamp ? new Date(d.timestamp).toLocaleString() : ''}</td>
+        <td>${d.location}</td>
+        <td>${d.dataType}</td>
+        <td>${d.parameter}</td>
+        <td>${d.value}</td>
+        <td>${d.unit}</td>
+        <td>${d.description || ''}</td>
+      </tr>
+    `).join('');
+
+    renderChart(data);
+  })
+  .catch(() => {
+    document.getElementById('dataTableBody').innerHTML =
+      '<tr><td colspan="7" class="text-danger text-center">Failed to load data</td></tr>';
+  });
+}
+
+let trendChart;
+
+function renderChart(data) {
+
+  const ctx = document.getElementById('trendChart').getContext('2d');
+
+  const sorted = data.slice().sort((a, b) =>
+    new Date(a.timestamp) - new Date(b.timestamp)
+  );
+
+  const labels = sorted.map(d =>
+    d.timestamp ? new Date(d.timestamp).toLocaleString() : ''
+  );
+
+  const values = sorted.map(d => d.value);
+
+  if (trendChart) trendChart.destroy();
+
+  trendChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Environmental Value',
+        data: values,
+        borderColor: '#198754',
+        backgroundColor: 'rgba(25,135,84,0.2)',
+        tension: 0.3,
+        fill: true
+      }]
+    }
+  });
+}
+
+</script>
+
+</body>
+</html>

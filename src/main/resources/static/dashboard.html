@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Environmental Portal</title>
+    <meta charset="UTF-8">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #d4fc79, #96e6a1);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #1b5e20;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .nav-left a {
+            color: white;
+            text-decoration: none;
+            margin-right: 25px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .nav-left a:hover {
+            color: #c8e6c9;
+        }
+
+        .nav-right {
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            background: #c8e6c9;
+            color: #1b5e20;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* CENTER CONTENT */
+        .container {
+            height: 85vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            color: #1b5e20;
+        }
+
+        ul {
+            text-align: left;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="nav-left">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="env-data.html">File Information</a>
+        <a href="reports.html">Reports</a>
+        <a href="policies.html">Policies</a>
+    </div>
+
+    <div class="nav-right">
+        Welcome, <span id="username"></span>
+        <span class="logout-btn" onclick="logout()">Logout</span>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h2>🌍 Welcome to Environmental Portal</h2>
+        <p>Manage environmental activities efficiently.</p>
+        <ul>
+            <li>🌿 Upload environmental data</li>
+            <li>📊 Generate colorful reports</li>
+            <li>📜 View environmental policies</li>
+            <li>🛡 Admin manage users</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+const token = localStorage.getItem("token");
+const email = localStorage.getItem("email");
+
+if (!token) {
+    window.location.href = "login.html";
+}
+
+document.getElementById("username").innerText = email.split("@")[0];
+
+function logout() {
+    localStorage.clear();
+    window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>

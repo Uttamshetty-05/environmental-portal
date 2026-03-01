@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - Environmental Portal</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(-45deg, #0f2027, #134e5e, #2e8b57, #38ef7d);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes gradientMove {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+.main-container {
+    display: flex;
+    width: 1100px;
+    height: 600px;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+/* LEFT SIDE */
+.left-section {
+    flex: 1;
+    background: #000;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.left-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 30px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+}
+
+.left-overlay h2 {
+    font-weight: bold;
+}
+
+/* RIGHT SIDE */
+.right-section {
+    flex: 1;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-card {
+    width: 380px;
+    color: white;
+}
+
+.register-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.btn-register {
+    width: 100%;
+    border-radius: 12px;
+    padding: 12px;
+    background: linear-gradient(45deg, #00c853, #00bfa5);
+    border: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-register:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-link a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="main-container">
+
+  <!-- LEFT IMAGE SECTION -->
+<div class="left-section">
+
+    <!-- NEW TOP IMAGE -->
+    <img src="/images/pollution-part-1-650x334.png"
+         alt="Environmental Banner"
+style="width:100%; height:220px; object-fit:contain;">
+    <div class="left-overlay">
+        <h2>Environmental Pollution</h2>
+        <p>Air • Water • Soil • Sea Pollution</p>
+    </div>
+
+    <!-- RIGHT FORM SECTION -->
+    <div class="right-section">
+        <div class="register-card">
+
+            <h2>Create Account</h2>
+
+            <form id="registerForm">
+
+                <div class="mb-3">
+                    <input type="email" id="email" class="form-control" placeholder="Email" required>
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" id="username" class="form-control" placeholder="Username" required>
+                </div>
+
+                <div class="mb-3">
+                    <input type="password" id="password" class="form-control" placeholder="Password" required>
+                </div>
+
+                <button type="submit" class="btn btn-register">Register</button>
+
+                <div class="login-link">
+                    Already have an account? <a href="login.html">Login</a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+document.getElementById("registerForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const data = {
+        email: document.getElementById("email").value,
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value
+    };
+
+    fetch("http://localhost:8080/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+        window.location.href = "login.html";
+    })
+    .catch(() => alert("Registration failed"));
+});
+
+</script>
+
+</body>
+</html>
