@@ -1,88 +1,88 @@
 🌍 Environmental Monitoring Portal
 
-A full-stack Environmental Monitoring Web Application built using Spring Boot, JWT Authentication, H2 Database, and Modern Eco-Themed UI.
+     A full-stack Environmental Monitoring Web Application built using Spring Boot, JWT Authentication, H2 Database, and Modern Eco-Themed UI.
 
-This system allows users to:
+     This system allows users to:
 
-✅ Register & Login securely using JWT
+    ✅ Register & Login securely using JWT
 
-🌿 Submit Environmental Data (Air, Water, Soil, Noise)
+    🌿 Submit Environmental Data (Air, Water, Soil, Noise)
 
-📊 View dynamic charts using Chart.js
+    📊 View dynamic charts using Chart.js
 
-🔐 Role-based access (User / Admin)
+    🔐 Role-based access (User / Admin)
 
-📁 Manage environmental reports
+    📁 Manage environmental reports
 
-📈 Track environmental trends visually
+     📈 Track environmental trends visually
 
 🚀 Tech Stack
-🔹 Backend
+ 🔹 Backend
 
-Java 17
+   Java 17
 
-Spring Boot 3
+   Spring Boot 3
 
-Spring Security
+   Spring Security
 
-JWT Authentication
+   JWT Authentication
 
-Spring Data JPA
+   Spring Data JPA
 
-H2 Database
+   H2 Database
 
-REST APIs
+   REST APIs
 
 🔹 Frontend
 
-HTML5
+   HTML5
 
-CSS3 (Eco-Themed UI)
+   CSS3 (Eco-Themed UI)
 
-Bootstrap 5
+   Bootstrap 5
 
-JavaScript (Fetch API)
+   JavaScript (Fetch API)
 
-Chart.js
+   Chart.js
 
 🔐 Authentication System
 
-Stateless JWT Authentication
+   Stateless JWT Authentication
 
-Secure password encryption using BCrypt
+   Secure password encryption using BCrypt
 
-Role-based authorization
+   Role-based authorization
 
-Protected API endpoints
+   Protected API endpoints
 
-Token validation using custom JWT filter
+   Token validation using custom JWT filter
 
 🌿 Features
-👤 User Features
+   👤 User Features
 
-Register account
+   Register account
 
-Secure login
+   Secure login
 
-Submit environmental measurements
+   Submit environmental measurements
 
-View personal submitted data
+   View personal submitted data
 
-Dynamic line chart trend visualization
+   Dynamic line chart trend visualization
 
-🛠 Admin Features
+   🛠 Admin Features
 
-Role-based access control
+   Role-based access control
 
-Secure endpoint protection
+   Secure endpoint protection
+ 
+ 📊 Environmental Data Types
 
-📊 Environmental Data Types
+   🌫 Air Quality
 
-🌫 Air Quality
+   💧 Water Quality
 
-💧 Water Quality
+   🌱 Soil Quality
 
-🌱 Soil Quality
-
-🔊 Noise Level
+   🔊 Noise Level
 
