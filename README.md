@@ -85,7 +85,3 @@ Secure endpoint protection
 🌱 Soil Quality
 
 🔊 Noise Level
-
-🖥 Screenshots
-
-(Add your screenshots inside /screenshots folder)
