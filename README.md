@@ -1,88 +1,96 @@
 🌍 Environmental Monitoring Portal
 
-     A full-stack Environmental Monitoring Web Application built using Spring Boot, JWT Authentication, H2 Database, and Modern Eco-Themed UI.
+A Full-Stack Environmental Monitoring Web Application built using Spring Boot 3, JWT Authentication, and a modern eco-themed UI.
 
-     This system allows users to:
+This system enables users and administrators to securely manage, analyze, and visualize environmental data in real time.
 
-    ✅ Register & Login securely using JWT
+🚀 Key Highlights
 
-    🌿 Submit Environmental Data (Air, Water, Soil, Noise)
+✅ Secure User Registration & Login (JWT-based authentication)
+🌿 Submit Environmental Data (Air, Water, Soil, Noise)
+📊 Interactive Data Visualization using Chart.js
+🔐 Role-Based Access Control (User / Admin)
+📁 Environmental Report Management
+📈 Trend Tracking with Dynamic Line Charts
 
-    📊 View dynamic charts using Chart.js
+🛠 Tech Stack
+🔹 Backend
 
-    🔐 Role-based access (User / Admin)
+Java 17
 
-    📁 Manage environmental reports
+Spring Boot 3
 
-     📈 Track environmental trends visually
+Spring Security
 
-🚀 Tech Stack
- 🔹 Backend
+JWT Authentication
 
-   Java 17
+Spring Data JPA
 
-   Spring Boot 3
+H2 Database
 
-   Spring Security
-
-   JWT Authentication
-
-   Spring Data JPA
-
-   H2 Database
-
-   REST APIs
+RESTful APIs
 
 🔹 Frontend
 
-   HTML5
+HTML5
 
-   CSS3 (Eco-Themed UI)
+CSS3 (Modern Eco-Themed UI)
 
-   Bootstrap 5
+Bootstrap 5
 
-   JavaScript (Fetch API)
+JavaScript (Fetch API)
 
-   Chart.js
+Chart.js
 
-🔐 Authentication System
+🔐 Authentication & Security
 
-   Stateless JWT Authentication
+This application implements a fully secure authentication system:
 
-   Secure password encryption using BCrypt
+Stateless JWT-based authentication
 
-   Role-based authorization
+Password encryption using BCrypt
 
-   Protected API endpoints
+Role-based authorization (USER / ADMIN)
 
-   Token validation using custom JWT filter
+Protected API endpoints
 
-🌿 Features
-   👤 User Features
+Custom JWT authentication filter
 
-   Register account
+Secure session handling
 
-   Secure login
+🌿 Core Features
+👤 User Features
 
-   Submit environmental measurements
+Register a new account
 
-   View personal submitted data
+Secure login using JWT
 
-   Dynamic line chart trend visualization
+Submit environmental measurements
 
-   🛠 Admin Features
+View personal submitted data
 
-   Role-based access control
+Visualize trends with dynamic line charts
 
-   Secure endpoint protection
- 
- 📊 Environmental Data Types
+🛠 Admin Features
 
-   🌫 Air Quality
+Role-based access control
 
-   💧 Water Quality
+Secure endpoint protection
 
-   🌱 Soil Quality
+Monitor submitted environmental data
 
-   🔊 Noise Level
+Manage system-level access
 
+📊 Supported Environmental Data Types
+
+🌫 Air Quality
+
+💧 Water Quality
+
+🌱 Soil Quality
+
+🔊 Noise Level
+
+🎯 Project Goal
+
+To provide a secure, scalable, and visually interactive platform for monitoring and analyzing environmental conditions using modern full-stack technologies.
